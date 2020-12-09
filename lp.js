@@ -2,52 +2,18 @@ var longestPalindrome = function(s) {
     let palindromeArray = []
     let palindrome
 
-    if (s.length === 1) {
-        return s
-    }
-    else if (s.length === 2) {
-        if (s[0] === s[1]) {
-            return s
-        }
-        else {
-            return s[0]
-        }
-    }
-
     for (i = 0; i < s.length; i++) {
         if (s[i] === s[i + 1]) {
-            palindrome = s.slice(i, i + 2)
-            let movement = 0
-            while (i - movement != 0) {
-                movement++
-                if (s[i - movement] === s[i + 1 + movement]) {
-                    palindrome = s.slice(i - movement, i + 2 + movement)
-                }
-                else {
-                    break
-                }
-            }
-            palindromeArray.push(palindrome)
+            checkNext(i, i + 1)
         }
         if (s[i] === s[i + 2]) {
-            palindrome = s.slice(i, i + 3)
-            let movement = 0
-            while (i - movement != 0) {
-                movement++
-                if (s[i - movement] === s[i + 2 + movement]) {
-                    palindrome = s.slice(i - movement, i + 3 + movement)
-                }
-                else {
-                    break
-                }
-            }
-            palindromeArray.push(palindrome)
+            checkNext(i, i + 2)
         }
     }
 
     let longest = palindromeArray[0]
 
-    for (i = 1; i < palindromeArray.length; i++) {
+    for (i = 0; i < palindromeArray.length; i++) {
         if (longest.length < palindromeArray[i].length) {
             longest = palindromeArray[i]
         }        
@@ -59,6 +25,21 @@ var longestPalindrome = function(s) {
     else {
         return longest
     }    
+
+    function checkNext(index, nextIndex) {
+        palindrome = s.slice(index, nextIndex + 1)
+        let movement = 0
+        while (index - movement != 0) {
+            movement++
+            if (s[index - movement] === s[nextIndex + movement]) {
+                palindrome = s.slice(index - movement, nextIndex + 1 + movement)
+            }
+            else {
+                break
+            }
+        }
+        palindromeArray.push(palindrome)
+    }    
 };
 
-console.log(longestPalindrome('abcd'))
+console.log(longestPalindrome('abba'))
