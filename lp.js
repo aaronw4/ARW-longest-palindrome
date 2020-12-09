@@ -53,8 +53,12 @@ var longestPalindrome = function(s) {
         }        
     }
 
-    console.log(palindromeArray)
-    return longest
+    if (palindromeArray.length === 0) {
+        return s[0]
+    }
+    else {
+        return longest
+    }    
 };
 
-console.log(longestPalindrome('cbbs'))
+console.log(longestPalindrome('abcd'))
